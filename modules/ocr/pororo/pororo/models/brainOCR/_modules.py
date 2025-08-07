@@ -7,7 +7,7 @@ import torch.nn.functional as F
 import torch.nn.init as init
 from torchvision import models
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("mps" if torch.mps.is_available() else "cpu")
 
 
 def init_weights(modules):

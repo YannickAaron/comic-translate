@@ -97,7 +97,8 @@ class AlignCollate(object):
             # augmentation here - change contrast
             if self.adjust_contrast > 0:
                 image = np.array(image.convert("L"))
-                image = adjust_contrast_grey(image, target=self.adjust_contrast)
+                image = adjust_contrast_grey(
+                    image, target=self.adjust_contrast)
                 image = Image.fromarray(image, "L")
 
             ratio = w / float(h)
@@ -165,7 +166,7 @@ def get_recognizer(opt2val: dict):
     device = opt2val["device"]
     state_dict = torch.load(rec_model_ckpt_fp, map_location=device)
 
-    if device == "cuda":
+    if device == "mps":
         recognizer = torch.nn.DataParallel(recognizer).to(device)
     else:
         # TODO temporary: multigpu 학습한 뒤 ckpt loading 문제

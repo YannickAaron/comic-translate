@@ -78,7 +78,7 @@ def get_detector(det_model_ckpt_fp: str, device: str = "cpu"):
 
     net.load_state_dict(
         copy_state_dict(torch.load(det_model_ckpt_fp, map_location=device)))
-    if device == "cuda":
+    if device == "mps":
         net = torch.nn.DataParallel(net).to(device)
         cudnn.benchmark = False
 

@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("mps" if torch.mps.is_available() else "cpu")
 
 
 class Attention(nn.Module):
@@ -35,8 +35,10 @@ class Attention(nn.Module):
         output_hiddens = (torch.FloatTensor(
             batch_size, num_steps, self.hidden_size).fill_(0).to(device))
         hidden = (
-            torch.FloatTensor(batch_size, self.hidden_size).fill_(0).to(device),
-            torch.FloatTensor(batch_size, self.hidden_size).fill_(0).to(device),
+            torch.FloatTensor(
+                batch_size, self.hidden_size).fill_(0).to(device),
+            torch.FloatTensor(
+                batch_size, self.hidden_size).fill_(0).to(device),
         )
 
         if is_train:
